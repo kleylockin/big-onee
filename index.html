@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For you, my babyy</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#3a1530;--bg2:#12060f;--glow:#ffe9d6;--pink:#ffb3cf;--ink:#fff3f7;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 50% 30%,var(--bg1),var(--bg2) 75%);color:var(--ink);
+display:flex;flex-direction:column;align-items:center;justify-content:center;overflow-x:hidden;font-family:'Quicksand',system-ui,sans-serif}
+.scene{position:relative;width:min(94vw,470px);aspect-ratio:400/560}
+.lamp{position:absolute;top:0;left:50%;width:74px;height:26px;transform:translateX(-50%);z-index:5;
+background:linear-gradient(#5b5560,#26222b);border-radius:8px 8px 30px 30px;box-shadow:0 0 30px 6px rgba(255,233,214,.8)}
+.lamp::after{content:"";position:absolute;left:12%;right:12%;bottom:-3px;height:8px;border-radius:50%;background:#fff6e8;box-shadow:0 0 18px 6px #fff2d8}
+.beam{position:absolute;top:18px;left:-12%;width:124%;height:96%;z-index:1;pointer-events:none;
+background:linear-gradient(to bottom,rgba(255,240,222,.62),rgba(255,214,232,.2) 65%,rgba(255,200,225,.06));
+clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);filter:blur(7px);animation:flick 5s ease-in-out infinite}
+.floor{position:absolute;left:-6%;right:-6%;bottom:-3%;height:12%;z-index:1;border-radius:50%;
+background:radial-gradient(ellipse,rgba(255,225,235,.55),rgba(255,180,210,.12) 60%,transparent 72%)}
+svg{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible}
+.sway{transform-box:view-box;transform-origin:200px 450px;animation:sway 4.5s ease-in-out infinite}
+.fl{transform-box:fill-box;transform-origin:50% 60%;animation:bob 3.4s ease-in-out infinite}
+.lv{transform-box:fill-box;transform-origin:50% 100%;animation:rustle 3s ease-in-out infinite}
+.spark{position:absolute;z-index:3;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px #ffd9e8;opacity:0;animation:rise linear infinite}
+.msg{position:relative;z-index:4;text-align:center;padding:6px 20px 28px;animation:show 2.4s 1s both}
+h1{font-family:'Dancing Script','Brush Script MT',cursive;font-weight:700;font-size:clamp(2rem,8vw,3rem);margin:6px 0 2px;color:#fff;
+text-shadow:0 0 14px #ff8fb8,0 0 34px #ff5d9b}
+p{margin:0;color:var(--pink);font-size:1.05rem;letter-spacing:.03em}
+@keyframes sway{0%,100%{transform:rotate(-3.2deg)}50%{transform:rotate(3.2deg)}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2.5deg) scale(1)}50%{transform:translateY(-5px) rotate(2.5deg) scale(1.045)}}
+@keyframes rustle{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes flick{0%,100%{opacity:.92}50%{opacity:1}}
+@keyframes rise{0%{opacity:0;transform:translateY(0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translateY(-90px) scale(1.1)}}
+@keyframes show{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}
+@media (prefers-reduced-motion:reduce){.spark,.beam{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div class="beam"></div><div class="floor"></div><div class="lamp"></div>
+  <svg viewBox="0 0 400 560" aria-label="A big bouquet of pink peonies">
+    <defs id="defs">
+      <linearGradient id="lf" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2f6a3e"/><stop offset="1" stop-color="#7fc08a"/></linearGradient>
+      <linearGradient id="pa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8d4de"/><stop offset="1" stop-color="#efb3c6"/></linearGradient>
+      <linearGradient id="pb" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3ec"/><stop offset="1" stop-color="#f6cfd6"/></linearGradient>
+      <radialGradient id="ct"><stop offset="0" stop-color="#b3174f"/><stop offset="1" stop-color="#e0568a"/></radialGradient>
+      <filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#40001d" flood-opacity=".4"/></filter>
+    </defs>
+    <g class="sway"><g id="art"></g></g>
+  </svg>
+</div>
+<div class="msg">
+  <h1>this one’s for you my babyy 💗</h1>
+  <p>a big one… the one u want 🌸</p>
+</div>
+<script>
+(function(){
+var NS="http://www.w3.org/2000/svg",defs=document.getElementById("defs"),art=document.getElementById("art");
+var seed=7;function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647}
+function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);(p||art).appendChild(e);return e}
+var pals=[[344,78,93],[338,74,86],[350,82,82]],gid=0,gcache={};
+function grad(p,i){var k=p+"-"+i;if(gcache[k])return gcache[k];var h=pals[p][0],s=pals[p][1],t=pals[p][2]-i*4.5,id="g"+(gid++);
+var g=el("linearGradient",{id:id,x1:0,y1:1,x2:0,y2:0},defs);
+[[0,t-26,s+8],[.5,t-9,s+2],[1,t,s-6]].forEach(function(o){el("stop",{offset:o[0],"stop-color":"hsl("+h+","+o[2]+"%,"+o[1]+"%)"},g)});
+return gcache[k]="url(#"+id+")"}
+function pd(L,W){return"M0,0C"+(-W)+","+(-L*.25)+" "+(-W*1.15)+","+(-L*.8)+" "+(-W*.5)+","+(-L*.96)+"Q"+(-W*.25)+","+(-L*1.07)+" 0,"+(-L*.97)+"Q"+(W*.25)+","+(-L*1.07)+" "+(W*.5)+","+(-L*.96)+"C"+(W*1.15)+","+(-L*.8)+" "+W+","+(-L*.25)+" 0,0Z"}
+var counts=[10,9,8,7,6,5],sizes=[1,.86,.72,.58,.44,.3];
+function peony(x,y,r,p,rot){
+var w=el("g",{class:"fl",style:"animation-delay:"+(-rnd()*3.4)+"s"});var g=el("g",{transform:"translate("+x+","+y+") rotate("+rot+")",filter:"url(#sh)"},w);
+for(var i=0;i<6;i++){var n=counts[i],L=r*sizes[i];
+for(var k=0;k<n;k++){var a=k*360/n+i*19+rnd()*12,s=.9+rnd()*.2;
+var pg=el("g",{transform:"rotate("+a+") scale("+(s*.96)+","+s+")"},g);
+el("path",{d:pd(L,L*.56),fill:grad(p,i),stroke:"rgba(140,30,75,.22)","stroke-width":.7},pg);
+el("path",{d:"M0,"+(-L*.18)+"Q"+(L*.08)+","+(-L*.55)+" 0,"+(-L*.86),stroke:"rgba(255,255,255,.28)","stroke-width":1,fill:"none","stroke-linecap":"round"},pg)}}
+el("circle",{r:r*.11,fill:"url(#ct)"},g);
+for(var j=0;j<9;j++){var q=j*40+rnd()*20,d=r*.07*rnd()+r*.02;el("circle",{cx:Math.cos(q)*d,cy:Math.sin(q)*d,r:1.3,fill:"#ffd76a"},g)}
+}
+function leaf(x,y,rot,sc){var w=el("g",{class:"lv",style:"animation-delay:"+(-rnd()*3)+"s"});var g=el("g",{transform:"translate("+x+","+y+") rotate("+rot+") scale("+sc+")"},w);
+el("path",{d:"M0,0C-20,-20 -16,-52 0,-76C16,-52 20,-20 0,0Z",fill:"url(#lf)",stroke:"#285a34","stroke-width":.8},g);
+el("path",{d:"M0,-4L0,-66",stroke:"rgba(255,255,255,.35)","stroke-width":1,fill:"none"},g)}
+var F=[[138,205,58,0,10],[270,200,60,1,-8],[96,262,48,2,-20],[312,266,50,0,18],[118,318,72,1,5],[284,314,74,2,-6],[200,262,92,0,0],[204,352,50,1,12]];
+/* stems */
+F.forEach(function(f){el("path",{d:"M"+f[0]+","+f[1]+"Q"+((f[0]+200)/2)+",400 200,440",stroke:"#3e7a47","stroke-width":5,fill:"none","stroke-linecap":"round"})});
+/* leaves */
+[[150,360,-58,.9],[250,360,58,.9],[120,330,-85,.8],[282,330,85,.8],[170,350,-30,.8],[232,350,30,.8],[90,300,-100,.6],[312,300,100,.6]].forEach(function(l){leaf(l[0],l[1],l[2],l[3])});
+/* flowers: back to front */
+[0,1,2,3,4,5,6,7].forEach(function(i){var f=F[i];peony(f[0],f[1],f[2],f[3],f[4])});
+/* wrapping paper */
+el("path",{d:"M88,372Q200,350 312,372L224,548L176,548Z",fill:"url(#pa)",stroke:"#d98aa6","stroke-width":1});
+el("path",{d:"M200,362L312,372L224,548L196,548Z",fill:"url(#pb)",stroke:"#e3a7ba","stroke-width":1});
+el("path",{d:"M150,372L192,548M250,374L212,548",stroke:"rgba(180,70,110,.25)","stroke-width":1,fill:"none"});
+/* ribbon */
+el("path",{d:"M200,452C150,412 128,470 195,462Z",fill:"#e0457b",stroke:"#b82e60","stroke-width":1});
+el("path",{d:"M200,452C250,412 272,470 205,462Z",fill:"#ec5c90",stroke:"#b82e60","stroke-width":1});
+el("path",{d:"M198,462L172,520L192,508L198,526ZM202,462L228,520L208,508L202,526Z",fill:"#d23a70","stroke":"#b82e60","stroke-width":1});
+el("circle",{cx:200,cy:457,r:9,fill:"#f2709f",stroke:"#b82e60","stroke-width":1});
+/* sparkles */
+var sc=document.getElementById("scene");
+for(var i=0;i<26;i++){var s=document.createElement("span");s.className="spark";
+s.style.left=(18+rnd()*64)+"%";s.style.top=(10+rnd()*80)+"%";
+s.style.animationDuration=(3+rnd()*4)+"s";s.style.animationDelay=(-rnd()*6)+"s";sc.appendChild(s)}
+})();
+</script>
+</body>
+</html>
